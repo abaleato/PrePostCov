@@ -11,7 +11,7 @@ class PkXiCovariance:
 
     The covariance block for given (ell1, ell2) is
         Cov[ P_{ell1}(k), xi_{ell2}(r) ] = ((2*ell1+1)*(2*ell2+1) / V) * jbar_{ell2}(k, r) *
-                                            sum_{L1,L2 in poles} I_{ell1,ell2,L1,L2} * P_{L1}(k) * P_{L2}(k)
+                                            sum_{L1,L2 in poles} i^{ell2} I_{ell1,ell2,L1,L2} * P_{L1}(k) * P_{L2}(k)
     where I is the integral of four Legendre polynomials over mu in [-1, 1] and
     jbar_{ell2}(k, r) is the r-bin-averaged spherical Bessel j_{ell2}(k r).
 
@@ -99,9 +99,8 @@ class PkXiCovariance:
                         P2 = P_arrays[L2]
                         I = self._I4[(ell1, ell2, L1, L2)]  # scalar
                         S_k += I * (P1 * P2)
-
                 # Prefactor depends on r only (via jmean), and on ells, V
-                pref = ((2 * ell1 + 1) * (2 * ell2 + 1) / self.V) * jmean_cache[ell2]  # (nr,)
+                pref = 1.j**ell2 * ((2 * ell1 + 1) * (2 * ell2 + 1) / self.V) * jmean_cache[ell2]  # (nr,)
                 cov[i, j, :, :] = S_k[:, None] * pref[None, :]
 
         return cov
