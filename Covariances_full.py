@@ -33,27 +33,29 @@ class full_covariance:
             if rank ==0:
                 print('Loading data catalog...')
                 data = vstack([Table(fitsio.read(fn)) for fn in self.data_fns])
+                print('data catalog loaded')
             else:
                 data = None
             self.data = comm.bcast(data,root=0)
-            print('data catalog loaded')
+            
         if 'randoms' in self.load_cats:
             if rank ==0:
                 print('Loading randoms catalog...')
-                randoms = vstack([Table(fitsio.read(fn)) for fn in self.rand_fns])
+                self.randoms = vstack([Table(fitsio.read(fn)) for fn in self.rand_fns])
+                print('randoms catalog loaded')
             else:
-                randoms = None
-            self.randoms = comm.bcast(randoms,root=0)
-            print('randoms catalog loaded')
+                self.randoms = None
+            # self.randoms = comm.bcast(randoms,root=0)
+            
 
 
     def get_positions_weights(self,catalog,weight_nms, zmin,zmax):
         zcut = (catalog['Z'] <= zmax) & (catalog['Z'] >= zmin)
         cat = catalog[zcut]
         weights= np.prod(np.array([cat[w] for w in weight_nms]),axis=0)
-        return [np.radians(90-cat['DEC']),np.radians(cat['RA'])], weights
+        return [cat['RA'], cat['DEC'], cosmo.comoving_radial_distance(cat['Z'])], weights
     
-    def measure_pk_pypower(self,zrange,weight_nms,save_path):
+    def measure_pk_pypower(self,zrange,weight_nms,save_path,options = None):
         zmin,zmax = zrange
         kedges = np.linspace(0, 0.4, 80)
         ells = [0,2,4]
@@ -61,25 +63,31 @@ class full_covariance:
             print('getting positions and weights for data and randoms...')
             data_positions,data_weights = self.get_positions_weights(self.data,weight_nms, zmin,zmax)
             rand_positions,rand_weights = self.get_positions_weights(self.randoms,weight_nms, zmin,zmax)
+            del self.randoms
         else:
             data_positions, data_weights = None, None
             rand_positions, rand_weights = None, None
-        data_positions = comm.bcast(data_positions,root=0)
-        data_weights = comm.bcast(data_weights,root=0)
-        rand_positions = comm.bcast(rand_positions,root=0)
-        rand_weights = comm.bcast(rand_weights,root=0)
-
-        if rank ==0: print('measuring Pk with pypower...')
+        # data_positions = comm.bcast(data_positions,root=0)
+        # data_weights = comm.bcast(data_weights,root=0)
+        # rand_positions = comm.bcast(rand_positions,root=0)
+        # rand_weights = comm.bcast(rand_weights,root=0)
+        
+        cellsize,boxsize = options
+        
+        if rank ==0: 
+            print('measuring Pk with pypower...')
+            print(f'Using cellsize={cellsize} and boxsize={boxsize}')
 
         result = CatalogFFTPower(data_positions1=data_positions, data_weights1=data_weights,
                          randoms_positions1=rand_positions, randoms_weights1=rand_weights,
-                         edges=kedges, ells=ells, interlacing=3, cellsize= 6., boxsize = None, resampler='tsc',
+                         edges=kedges, ells=ells, interlacing=3, cellsize= cellsize, boxsize = boxsize, resampler='tsc',
                          los='firstpoint', position_type= 'rdd',  dtype='f8', mpicomm=comm, mpiroot=0)
         
         if rank ==0: 
             print('Done, saving...')
-            result.save(save_path + '.npy')
-            print(f'Saved to {save_path + '.npy'}')
+            fout = save_path + '.npy'
+            result.save(fout)
+            print(f'Saved to {fout}')
         return result
     
     def measure_windows(self,zrange,weight_nms,pk_poles,save_path):
@@ -87,10 +95,11 @@ class full_covariance:
         if rank ==0:
             print('getting positions and weights for randoms...')
             rand_positions,rand_weights = self.get_positions_weights(self.randoms,weight_nms, zmin,zmax)
+            del self.randoms
         else:
             rand_positions,rand_weights = None, None
-        rand_positions = comm.bcast(rand_positions,root=0)
-        rand_weights = comm.bcast(rand_weights,root=0)
+        # rand_positions = comm.bcast(rand_positions,root=0)
+        # rand_weights = comm.bcast(rand_weights,root=0)
 
         direct_attrs = {'nthreads': 128}
         win_direct_selection_attrs = direct_selection_attrs = None #{'theta': (0., 1.)}
@@ -98,6 +107,7 @@ class full_covariance:
         boxsize = pk_poles.attrs['boxsize'][0]
 
         boxscales = [1., 5., 20.]
+        # boxscales = [20.]
 
         boxsizes = boxsize*np.array(boxscales)
         edges = {'step': 2. * np.pi / np.max(boxsizes)}

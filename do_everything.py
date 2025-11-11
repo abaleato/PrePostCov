@@ -37,7 +37,8 @@ import yaml
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--tracer', type=str,   required=True)
-parser.add_argument('--zrange',type=tuple,   required=True)
+parser.add_argument('--zrange', type=float, nargs=2, required=True,
+                    help='Redshift range: ZMIN ZMAX')
 parser.add_argument('--outpath', type=str,   required=True)
 parser.add_argument('--DR', type=int,   required=True)
 parser.add_argument('--version', type=str,   required=True)
@@ -48,6 +49,7 @@ parser.add_argument('--pkcov_component', required=False, type=str, choices=['gau
 parser.add_argument('--pk_poles_path', required=False, type=str)
 parser.add_argument('--pk_fid_path', required=False, type=str)
 parser.add_argument('--zeff',type=tuple,   required=True)
+# parser.add_argument('--wbox', required=False, type=int)
 
 args = parser.parse_args()
 
@@ -68,14 +70,25 @@ if args.DR ==2:
     else:
         tr_nm = args.tracer
 
-data_fnms = [args.catalog_dir + f'{tr_nm}_{reg}_clustering.dat.fits' for reg in args.region]
-rand_fnms = [[args.catalog_dir + f'{tr_nm}_{reg}_{i}_clustering.ran.fits' for i in range(18)] for reg in args.regions]
+if args.region == 'NGC': region = ['NGC']
+if args.region == 'SGC': region = ['SGC']
+if args.region == 'GCcomb': region = ['NGC','SGC']
+
+data_fnms = [catalog_dir + f'{tr_nm}_{reg}_clustering.dat.fits' for reg in region]
+rand_fnms = [[catalog_dir + f'{tr_nm}_{reg}_{i}_clustering.ran.fits' for i in range(18)] for reg in region]
 rand_fnms = np.array(rand_fnms).ravel()
 
 if args.task == 'measure_pk':
+    if args.tracer == 'ELG': 
+        pypower_opts = (10,9000)
+    elif args.tracer == 'QSO':
+        pypower_opts = (10,10000)
+    else:
+        pypower_opts = (6,None)
     compute_class = full_covariance(tr_nm,args.DR,data_fnms,rand_fnms,load_cats = ['data','randoms'])
     
-    pk_pypower = compute_class.measure_pk_pypower(zrange=args.zrange,weight_nms = ['WEIGHT','WEIGHT_FKP'],save_path = args.outpath)
+    pk_pypower = compute_class.measure_pk_pypower(zrange=args.zrange,weight_nms = ['WEIGHT','WEIGHT_FKP'],\
+                                                  save_path = args.outpath, options = pypower_opts)
 
 if args.task == 'compute_window':
     compute_class = full_covariance(tr_nm,args.DR,data_fnms,rand_fnms,load_cats = ['randoms'])

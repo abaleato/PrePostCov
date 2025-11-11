@@ -12,7 +12,7 @@ Overall steps are:
 
 These are all subroutines in the full_covariance() class in Covariances_full.py. The front end script is do_everything.py to which you add arguments related to the desired task:
 
-1. srun -n 64 python do_everything.py --task measure_pk --tracer LRG --zrange (0.4,0.6) --DR 2 --version v2 --region GCcomb --outpath ./data/pk_measured/Pk_LRG_z0.4-0.6_DR2_GCcomb
-2. srun -n 64 python do_everything.py --task compute_window --pk_poles_path ./data/pk_measured/Pk_LRG_z0.4-0.6_DR2_GCcomb.npy --tracer LRG --zrange (0.4,0.6) --DR 2 --version v2 --region GCcomb --outpath ./data/pk_window/wmat_LRG_z0.4-0.6_DR2_GCcomb
+1. srun -n 64 python do_everything.py --task measure_pk --tracer LRG --zrange 0.4 0.6 --zeff 0.51 --DR 2 --version v2 --region GCcomb --outpath ./data/pk_measured/Pk_LRG_z0.4-0.6_DR2_GCcomb
+2. srun -n 64 python do_everything.py --task compute_window --pk_poles_path ./data/pk_measured/Pk_LRG_z0.4-0.6_DR2_GCcomb.npy --tracer LRG --zrange 0.4 0.6 --zeff 0.51 --DR 2 --version v2 --region GCcomb --outpath ./data/pk_window/wmat_LRG_z0.4-0.6_DR2_GCcomb
 
 
