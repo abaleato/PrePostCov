@@ -80,9 +80,9 @@ rand_fnms = np.array(rand_fnms).ravel()
 
 if args.task == 'measure_pk':
     if args.tracer == 'ELG': 
-        pypower_opts = (10,9000)
+        pypower_opts = (6,9000)
     elif args.tracer == 'QSO':
-        pypower_opts = (10,10000)
+        pypower_opts = (6,10000)
     else:
         pypower_opts = (6,None)
     compute_class = full_covariance(tr_nm,args.DR,data_fnms,rand_fnms,load_cats = ['data','randoms'])

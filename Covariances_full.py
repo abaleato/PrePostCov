@@ -6,7 +6,7 @@ import mockfactory.utils
 import thecov.geometry
 import thecov.covariance
 from cosmoprimo.fiducial import DESI
-from pypower import CatalogFFTPower, CatalogSmoothWindow,setup_logging, mpi
+from pypower import CatalogFFTPower, CatalogSmoothWindow,setup_logging, mpi,PowerSpectrumOddWideAngleMatrix,PowerSpectrumSmoothWindowMatrix,PowerSpectrumStatistics,PowerSpectrumMultipoles
 from pathlib import Path
 from functools import partial
 from astropy.table import Table, vstack, hstack
@@ -32,11 +32,11 @@ class full_covariance:
         if 'data' in self.load_cats:
             if rank ==0:
                 print('Loading data catalog...')
-                data = vstack([Table(fitsio.read(fn)) for fn in self.data_fns])
+                self.data = vstack([Table(fitsio.read(fn)) for fn in self.data_fns])
                 print('data catalog loaded')
             else:
-                data = None
-            self.data = comm.bcast(data,root=0)
+                self.data = None
+            # self.data = comm.bcast(data,root=0)
             
         if 'randoms' in self.load_cats:
             if rank ==0:
@@ -57,7 +57,7 @@ class full_covariance:
     
     def measure_pk_pypower(self,zrange,weight_nms,save_path,options = None):
         zmin,zmax = zrange
-        kedges = np.linspace(0, 0.4, 80)
+        kedges = np.linspace(0, 0.4, 81) #{'min': 0., 'step': 0.001} #np.linspace(0, 0.4, 81)
         ells = [0,2,4]
         if rank ==0:
             print('getting positions and weights for data and randoms...')
@@ -89,6 +89,41 @@ class full_covariance:
             result.save(fout)
             print(f'Saved to {fout}')
         return result
+
+    def postprocess_windows(self,window,power,save_path):
+        
+        # Let us compute the wide-angle and window function matrix
+        ellsin = (0, 2, 4)  # input (theory) multipoles
+        wa_orders = 1 # wide-angle order
+        sep = np.geomspace(1e-4, 1e5, 1024 * 16) # configuration space separation for FFTlog
+
+        kin_rebin = 4 # rebin input theory to save memory
+        kin_lim = (0, 2e1) # pre-cut input (theory) ks to save some memory
+        # Input projections for window function matrix:
+        # theory multipoles at wa_order = 0, and wide-angle terms at wa_order = 1
+        projsin = tuple(ellsin) + tuple(PowerSpectrumOddWideAngleMatrix.propose_out(ellsin, wa_orders=wa_orders))
+        # Window matrix
+        wmatrix = PowerSpectrumSmoothWindowMatrix(power, projsin=projsin, window=window, sep=sep, kin_rebin=kin_rebin, kin_lim=kin_lim)
+        # We resum over theory odd-wide angle
+        wmatrix.resum_input_odd_wide_angle()
+        wmatrix.attrs.update(power.attrs)
+        wmatrix.save(save_path + '_wa.npy')
+
+        def rebin_xin(wmatrix, kin):
+            # wmatrix has done the sliceout rebinning before using this function
+            from scipy import linalg
+            from desilike import utils
+            wmatrix_rebin = linalg.block_diag(*[utils.matrix_lininterp(kin, xin) for xin in wmatrix.xin])
+            return wmatrix.value.T.dot(wmatrix_rebin.T)
+        kin_new = np.linspace(0,1.0,501) + 0.001
+        wmatrix_rebin = rebin_xin(wmatrix,kin_new)
+
+        np.savetxt(save_path + '_matrix.txt',wmatrix_rebin)
+        np.savetxt(save_path + '_kin.txt',kin_new)
+
+        return wmatrix_rebin
+        
+        
     
     def measure_windows(self,zrange,weight_nms,pk_poles,save_path):
         zmin,zmax = zrange
@@ -131,7 +166,18 @@ class full_covariance:
             if rank == 0:
                 print(iboxsize,'th window finished')
                 wind.save(save_path + f'_box{int(boxscales[iboxsize])}.npy')
-                windows.append(wind)
+                windows.append(wind.poles)
+                
+        if rank == 0:
+            if isinstance(windows, (tuple, list)):
+                argsort = np.argsort([np.max(window.attrs['boxsize']) for window in windows])[::-1]
+                windows = [windows[ii] for ii in argsort]
+                window = windows[0].concatenate_x(*windows, frac_nyq=0.9)
+                window.save(save_path + '_concatenate.npy')
+            print('Postprocessing Window and computing wide angle')
+            wmatrix_final = self.postprocess_windows(window,pk_poles,save_path)
+            print('done')
+                    
         return windows
     
     def compute_pk_covariance(self,component,zrange,zeff,pk_fid,save_path,bias,krange = (0,0.4,0.005)):
@@ -253,7 +299,7 @@ class full_covariance:
             covariance = ssc
         return covariance
             
-    def compute_PkXi_covariance(self,kvec,rvec,Veff,save_path):
+    def compute_PkXi_covariance(self,z,b,kvec,rvec,Veff,save_path):
         from scipy.special import hyp2f1
 
         from classy import Class
@@ -272,7 +318,7 @@ class full_covariance:
             ret = Da/a - a*(6*a**2 * (1 - OmegaM) * hyp2f1(4./3, 2, 17./6, -a**3 *  (1 - OmegaM)/OmegaM))/(11*OmegaM)/hyp2f1(1./3,1,11./6,-1/OmegaM*(1-OmegaM))
             return a * ret / Da
 
-        z = 0.8
+        # z = 0.8
         pkparams = {
             'output': 'mPk',
             'P_k_max_h/Mpc': 20.,
