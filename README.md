@@ -57,3 +57,8 @@ These are all subroutines in the `full_covariance()` class in [Covariances_full.
 If you use this code in your research, please cite:
 
 **Maus, Baleato Lizancos and White (2026)**
+
+## License
+
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](LICENSE) (CC BY-NC 4.0). You are free to use, share, and adapt this code for non-commercial purposes with appropriate attribution.
+
