@@ -1,20 +1,22 @@
 
 # PrePostCov
 
+[![PyPI version](https://img.shields.io/pypi/v/prepostcov)](https://pypi.org/project/prepostcov/)
+
 PrePostCov is a Python package to compute analytical covariances between multipoles of the pre-reconstruction galaxy power spectrum and the post-reconstruction two-point correlation function.
 
 ## Installation
 
-You can install the package locally (from the root directory) with:
+Install from PyPI:
 
 ```bash
-pip install .
+pip install prepostcov
 ```
 
-Or install dependencies for development:
+Or install locally for development (from the root directory):
 
 ```bash
-pip install -e .[dev]
+pip install -e .
 ```
 ---
 

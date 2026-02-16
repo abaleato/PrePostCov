@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Callable, Dict, Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 
 class LegendreMultipoleExtractor:
