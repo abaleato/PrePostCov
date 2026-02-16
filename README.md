@@ -56,7 +56,7 @@ These are all subroutines in the `full_covariance()` class in [Covariances_full.
 
 If you use this code in your research, please cite:
 
-**Maus, Baleato Lizancos and White (2026)**
+[**Maus, Baleato Lizancos, White, de Mattia & Chen (2026)**](https://arxiv.org/abs/2602.12343)
 
 ## License
 
