@@ -1,5 +1,23 @@
+
 # PrePostCov
-Code to compute analytical covariances between multipoles of the pre-reconstruction power spectrum and the post-reconstruction two-point correlation function.
+
+PrePostCov is a Python package to compute analytical covariances between multipoles of the pre-reconstruction galaxy power spectrum and the post-reconstruction two-point correlation function.
+
+## Installation
+
+You can install the package locally (from the root directory) with:
+
+```bash
+pip install .
+```
+
+Or install dependencies for development:
+
+```bash
+pip install -e .[dev]
+```
+---
+
 
 ## $P_{\ell}(k)^{\rm{pre-recon}}$ - $\xi_{\ell}(r)^{\rm{post-recon}}$ cross-covariance
 The main novelty presented in this repo is an analytic calculation of the cross-covariance between $P_{\ell}(k)^{\rm{pre-recon}}$ and $\xi_{\ell}(r)^{\rm{post-recon}}$. The required functionality lives in `covariances_pk_xi.py`. Running this requires only very basic dependencies like `numpy` and `scipy`.
@@ -9,7 +27,8 @@ The main novelty presented in this repo is an analytic calculation of the cross-
 For the basic cross-covariance calculation, see the worked example in [preprost_covariance.ipynb](preprost_covariance.ipynb). In brief:
 
 ```python
-from covariances_pk_xi import PkXiCovariance
+# After installation, you can import the main classes and functions as
+from prepostcov import PkXiCovariance, LegendreMultipoleExtractor
 
 # Initialize the covariance builder
 cov_builder = PkXiCovariance(k=k_array, r=r_array, V=survey_volume, 
