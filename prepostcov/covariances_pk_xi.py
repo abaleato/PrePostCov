@@ -2,7 +2,7 @@ import numpy as np
 from typing import Dict, Iterable, List, Optional
 from scipy.special import spherical_jn
 
-from multipoles import LegendreMultipoleExtractor, integrate_legendre_product_4
+from .multipoles import LegendreMultipoleExtractor, integrate_legendre_product_4
 
 
 class PkXiCovariance:

@@ -4,7 +4,7 @@ setup(
     name="prepostcov",
     version="0.1.0",
     description="Covariance and multipole tools for power spectrum and correlation function analysis.",
-    author="Baleato Lizancos, Maus, White",
+    author="A. Baleato Lizancos & M. Maus",
     author_email="a.baleatolizancos@berkeley.edu",
     url="https://github.com/abaleato/PrePostCov/tree/main",
     packages=find_packages(),

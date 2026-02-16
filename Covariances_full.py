@@ -303,8 +303,8 @@ class full_covariance:
         from scipy.special import hyp2f1
 
         from classy import Class
-        from multipoles import LegendreMultipoleExtractor
-        from covariances_pk_xi import PkXiCovariance
+        from prepostcov.multipoles import LegendreMultipoleExtractor
+        from prepostcov.covariances_pk_xi import PkXiCovariance
         # We are going to need the linear matter power spectrum.
         # We will use CLASS to compute it.
 
