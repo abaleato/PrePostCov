@@ -73,11 +73,28 @@ These are all subroutines in the `full_covariance()` class in [Covariances_full.
        --region GCcomb --outpath ./data/pk_window/wmat_LRG_z0.4-0.6_DR2_GCcomb
    ```
 
-## Citation
+## Attribution
 
-If you use this code in your research, please cite:
+If you use the code, please cite:
 
-[**Maus, Baleato Lizancos, White, de Mattia & Chen (2026)**](https://arxiv.org/abs/2602.12343)
+```bibtex
+@ARTICLE{2026arXiv260212343M,
+       author = {{Maus}, M. and {Baleato Lizancos}, A. and {White}, M. and {de Mattia}, A. and {Chen}, S.},
+        title = "{An analytic approximation to the covariance between pre- and post-reconstruction galaxy two-point statistics}",
+      journal = {arXiv e-prints},
+     keywords = {Cosmology and Nongalactic Astrophysics},
+         year = 2026,
+        month = feb,
+          eid = {arXiv:2602.12343},
+        pages = {arXiv:2602.12343},
+          doi = {10.48550/arXiv.2602.12343},
+archivePrefix = {arXiv},
+       eprint = {2602.12343},
+ primaryClass = {astro-ph.CO},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv260212343M},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+```
 
 ## License
 
