@@ -2,6 +2,7 @@
 # PrePostCov
 
 [![PyPI version](https://img.shields.io/pypi/v/prepostcov)](https://pypi.org/project/prepostcov/)
+[![arXiv](https://img.shields.io/badge/arXiv-2602.12343-b31b1b.svg)](https://arxiv.org/abs/2602.12343)
 
 PrePostCov is a Python package to compute analytical covariances between multipoles of the pre-reconstruction galaxy power spectrum and the post-reconstruction two-point correlation function.
 
