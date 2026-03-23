@@ -1,0 +1,80 @@
+Loading data catalog...
+data catalog loaded
+Loading randoms catalog...
+randoms catalog loaded
+getting positions and weights for data and randoms...
+measuring Pk with pypower...
+Using cellsize=6 and boxsize=10000
+[000024.82]  01-06 03:24  CatalogFFTPower              INFO     Painting catalog 1 to mesh CatalogMesh(nmesh=[1668 1668 1668], boxsize=[10008. 10008. 10008.], boxcenter=[ 913.39402899 1837.35369005 1837.22007027], dtype=float64).
+[000025.11]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 3870.
+[000025.36]  01-06 03:24  CatalogMesh                  INFO     Painted 247669 out of 247669 objects to mesh.
+[000025.40]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 1227674.
+[000025.66]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000025.78]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 2097152 / 1227674.
+[000026.06]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000026.17]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 1048576 / 1227674.
+[000026.41]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (16215806 > 8388608)
+[000026.52]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 524288 / 1227674.
+[000028.87]  01-06 03:24  CatalogMesh                  INFO     Painted 33554432 out of 78571098 objects to mesh.
+[000028.87]  01-06 03:24  CatalogMesh                  INFO     Slab 524288 ~ 1153433 / 1227674.
+[000029.01]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (9728340 > 8388608)
+[000029.15]  01-06 03:24  CatalogMesh                  INFO     Slab 524288 ~ 838860 / 1227674.
+[000030.62]  01-06 03:24  CatalogMesh                  INFO     Painted 53687040 out of 78571098 objects to mesh.
+[000030.62]  01-06 03:24  CatalogMesh                  INFO     Slab 838860 ~ 1216346 / 1227674.
+[000032.34]  01-06 03:24  CatalogMesh                  INFO     Painted 77846144 out of 78571098 objects to mesh.
+[000032.34]  01-06 03:24  CatalogMesh                  INFO     Slab 1216346 ~ 1669329 / 1227674.
+[000032.49]  01-06 03:24  CatalogMesh                  INFO     Painted 78571098 out of 78571098 objects to mesh.
+[000032.50]  01-06 03:24  CatalogMesh                  INFO     Running interlacing at order 3.
+[000043.90]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 3870.
+[000044.06]  01-06 03:24  CatalogMesh                  INFO     Painted 247669 out of 247669 objects to mesh.
+[000044.10]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 1227674.
+[000044.36]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000044.47]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 2097152 / 1227674.
+[000044.73]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000044.85]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 1048576 / 1227674.
+[000045.07]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (16215806 > 8388608)
+[000045.18]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 524288 / 1227674.
+[000047.52]  01-06 03:24  CatalogMesh                  INFO     Painted 33554432 out of 78571098 objects to mesh.
+[000047.52]  01-06 03:24  CatalogMesh                  INFO     Slab 524288 ~ 1153433 / 1227674.
+[000047.66]  01-06 03:24  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (9728340 > 8388608)
+[000047.79]  01-06 03:24  CatalogMesh                  INFO     Slab 524288 ~ 838860 / 1227674.
+[000049.22]  01-06 03:24  CatalogMesh                  INFO     Painted 53687040 out of 78571098 objects to mesh.
+[000049.22]  01-06 03:24  CatalogMesh                  INFO     Slab 838860 ~ 1216346 / 1227674.
+[000050.94]  01-06 03:24  CatalogMesh                  INFO     Painted 77846144 out of 78571098 objects to mesh.
+[000050.94]  01-06 03:24  CatalogMesh                  INFO     Slab 1216346 ~ 1669329 / 1227674.
+[000051.10]  01-06 03:24  CatalogMesh                  INFO     Painted 78571098 out of 78571098 objects to mesh.
+[000063.52]  01-06 03:24  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 3870.
+[000063.68]  01-06 03:25  CatalogMesh                  INFO     Painted 247669 out of 247669 objects to mesh.
+[000063.72]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 1227674.
+[000063.98]  01-06 03:25  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000064.09]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 2097152 / 1227674.
+[000064.36]  01-06 03:25  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (18985518 > 8388608)
+[000064.48]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 1048576 / 1227674.
+[000064.70]  01-06 03:25  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (16215806 > 8388608)
+[000064.81]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 524288 / 1227674.
+[000067.14]  01-06 03:25  CatalogMesh                  INFO     Painted 33554432 out of 78571098 objects to mesh.
+[000067.14]  01-06 03:25  CatalogMesh                  INFO     Slab 524288 ~ 1153433 / 1227674.
+[000067.28]  01-06 03:25  CatalogMesh                  INFO     Throttling slab size as some ranks will receive too many particles. (9728340 > 8388608)
+[000067.39]  01-06 03:25  CatalogMesh                  INFO     Slab 524288 ~ 838860 / 1227674.
+[000068.84]  01-06 03:25  CatalogMesh                  INFO     Painted 53687040 out of 78571098 objects to mesh.
+[000068.84]  01-06 03:25  CatalogMesh                  INFO     Slab 838860 ~ 1216346 / 1227674.
+[000070.53]  01-06 03:25  CatalogMesh                  INFO     Painted 77846144 out of 78571098 objects to mesh.
+[000070.53]  01-06 03:25  CatalogMesh                  INFO     Slab 1216346 ~ 1669329 / 1227674.
+[000070.69]  01-06 03:25  CatalogMesh                  INFO     Painted 78571098 out of 78571098 objects to mesh.
+[000093.38]  01-06 03:25  CatalogFFTPower              INFO     Done painting catalog 1 to mesh.
+[000093.38]  01-06 03:25  CatalogFFTPower              INFO     Using 80 k-bins between 0.000 and 0.400.
+[000093.93]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 3870.
+[000094.08]  01-06 03:25  CatalogMesh                  INFO     Painted 247669 out of 247669 objects to mesh.
+[000094.32]  01-06 03:25  CatalogMesh                  INFO     Slab 0 ~ 4194304 / 1227674.
+[000095.18]  01-06 03:25  CatalogMesh                  INFO     Painted 78571098 out of 78571098 objects to mesh.
+[000095.32]  01-06 03:25  CatalogFFTPower              INFO     Meshes prepared in elapsed time 70.50 s.
+[000095.32]  01-06 03:25  CatalogFFTPower              INFO     Running mesh calculation.
+[000110.87]  01-06 03:25  CatalogFFTPower              INFO     ell = 0 done; 1 r2c completed
+[000184.15]  01-06 03:27  CatalogFFTPower              INFO     ell = 2 done; 5 r2c completed
+[000301.53]  01-06 03:28  CatalogFFTPower              INFO     ell = 4 done; 9 r2c completed
+[000306.31]  01-06 03:29  CatalogFFTPower              INFO     Mesh calculations performed in elapsed time 210.99 s.
+[000306.31]  01-06 03:29  CatalogFFTPower              INFO     Power spectrum computed in elapsed time 281.50 s.
+Done, saving...
+[000306.32]  01-06 03:29  CatalogFFTPower              INFO     Saving ../desi/KP/z_errors/measurements/pk_measured/Pk_QSO_z0.8-2.1_abacuslightcone.npy.
+Saved to ../desi/KP/z_errors/measurements/pk_measured/Pk_QSO_z0.8-2.1_abacuslightcone.npy
+Job finished at: Tue 06 Jan 2026 03:29:05 AM PST

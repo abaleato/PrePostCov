@@ -1,12 +1,27 @@
+# Generated plots
+*.pdf
+*.png
+*.svg
+*.jpg
+*.jpeg
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
 build/
 dist/
+
+# Virtual environments
 .env/
 .venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
 # VSCode
 .vscode/
+
 # MacOS
 .DS_Store
