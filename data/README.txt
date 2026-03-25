@@ -70,3 +70,8 @@ analytics/  -- Analytic covariance variants (LRG2 only)
 
   PkXi_joint_LRG2_ell02_cov_rotated_hack.txt
     Rotated analytic covariance using the approximate rotation scheme.
+
+  PkXi_joint_LRG2_ell02_cov_analytic_cross_rotated.txt
+    The (160, 100) Pk–Xi cross-block of the analytic covariance after window
+    matrix rotation. Pre-computed so that PkXi_correlation_plots.ipynb can be
+    run with rotate_window=True without requiring the lsstypes package.
